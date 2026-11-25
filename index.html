@@ -44,7 +44,7 @@ main{padding:.7rem .7rem 5rem;max-width:720px;margin:0 auto}
 .lg{flex:none;width:1.65rem;height:1.65rem;border-radius:.2rem;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-style:normal;font-weight:700;font-size:1rem;font-family:Arial,Helvetica,sans-serif}
 .lg.c{background:#d63b45}.lg.k{background:#0a0a10}
 /* seções */
-.sec{margin:1rem 0 .35rem;display:flex;align-items:center;gap:.5rem}
+.sec{margin:1rem 0 .35rem;padding-top:.7rem;border-top:1px solid rgba(10,61,98,.28);display:flex;align-items:center;gap:.5rem}
 .sec h2{flex:1;margin:0;font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;color:var(--azul);font-weight:750}
 .sec h2 small{display:block;text-transform:none;letter-spacing:0;font-weight:500;color:#2b3844;font-size:.78rem}
 .nota-btn{border:1.5px solid var(--ouro);background:#fff8dc;color:#6b5000;border-radius:2rem;padding:.3rem .8rem;font-size:.8rem;font-weight:700;min-height:2rem}
@@ -56,6 +56,14 @@ main{padding:.7rem .7rem 5rem;max-width:720px;margin:0 auto}
 .nota .x:active{background:rgba(0,0,0,.2)}
 .sub-h{margin:.8rem 0 .25rem;font-size:.78rem;font-weight:800;letter-spacing:.07em;color:#fff;background:var(--azul2);display:inline-block;padding:.15rem .7rem;border-radius:.4rem}
 .sub-h.lsp{background:var(--verm)}
+/* RSP / LSP como botões 3D: ocultam / mostram a lista logo abaixo */
+.sub-h.tg{display:inline-block;border:0;font-size:.86rem;padding:.3rem 1rem;border-radius:.5rem;margin:.8rem 0 .45rem;
+  background:linear-gradient(#3a8ac0,var(--azul2) 55%,#175a87);text-shadow:0 -1px 0 rgba(0,0,0,.3);
+  box-shadow:0 3px 0 #0e3f61,0 5px 7px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .08s,box-shadow .08s}
+.sub-h.tg.lsp{background:linear-gradient(#e8605b,var(--verm) 55%,#b52c28);box-shadow:0 3px 0 #7d1b18,0 5px 7px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.35)}
+.sub-h.tg:active{transform:translateY(3px);box-shadow:0 0 0 #0e3f61,0 1px 2px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.35)}
+.sub-h.tg.lsp:active{box-shadow:0 0 0 #7d1b18,0 1px 2px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.35)}
+.list[hidden]{display:none}
 .cond{font-size:.82rem;font-weight:650;color:var(--azul);background:var(--azul-claro);border-radius:.4rem;padding:.35rem .6rem;margin:.6rem 0 .1rem}
 
 /* linhas */
@@ -451,8 +459,10 @@ function vHome(){
 
   h+=secao("Procedimentos antes da decolagem");
   h+=`<div class="list">`+rowGo("#/to","Before Takeoff Procedure (figura)",`${cnt(toKeys())}/13`,derivOk("to"),true)+`</div>`;
-  h+=`<span class="sub-h">RSP</span><div class="list">`+DEC_RSP.map((x,i)=>rowCheck("dr"+i,"",x[0],x[1],"")).join("")+`</div>`;
-  h+=`<span class="sub-h lsp">LSP</span><div class="list">`+DEC_LSP.map((x,i)=>rowCheck("dl"+i,"",x[0],x[1],"")).join("")+`</div>`;
+  const oc=g=>!!(cfg.oc&&cfg.oc[g]);
+  const tg=(g,cls,txt)=>`<button class="sub-h tg${cls}" data-act="tgl" data-g="${g}" aria-expanded="${!oc(g)}">${txt}</button><div class="list"${oc(g)?" hidden":""} data-tg="${g}">`;
+  h+=`<div>`+tg("dr","","RSP")+DEC_RSP.map((x,i)=>rowCheck("dr"+i,"",x[0],x[1],"")).join("")+`</div></div>`;
+  h+=`<div>`+tg("dl"," lsp","LSP")+DEC_LSP.map((x,i)=>rowCheck("dl"+i,"",x[0],x[1],"")).join("")+`</div></div>`;
   h+=`<div class="list" style="margin-top:.8rem">`+rowGo("#/tochk","SOLICITAR: Before Take Off Checklist","",isOk("tor")).replace('row go static','row solic go static').replace('data-go="#/tochk" aria-label="Abrir"','data-act="chk" data-k="tor" aria-label="Marcar"')+`</div>`;
   h+=secao("Procedimento de cruzeiro","","cruz");
   h+=`<div class="list">`+
@@ -678,6 +688,9 @@ document.addEventListener("click",e=>{
   const a=el.dataset.act;
   if(a==="fechanota"){ const n=el.dataset.n; document.getElementById("nota-"+n).innerHTML=""; const b=document.querySelector(`[data-nota="${n}"]`); if(b)b.setAttribute("aria-expanded","false"); return; }
   if(a==="closesheet"){ fechaSheet(); return; }
+  if(a==="tgl"){ const g=el.dataset.g, l=document.querySelector(`[data-tg="${g}"]`); if(!l)return;
+    l.hidden=!l.hidden; el.setAttribute("aria-expanded",String(!l.hidden));
+    cfg.oc=Object.assign({},cfg.oc,{[g]:l.hidden}); aplicaCfg(); return; }
   if(a==="chk"){ toggle(el.dataset.k); rerender(); return; }
   if(a==="all"){ const ks=el.dataset.keys.split(","); const todos=ks.every(isOk); ks.forEach(k=>toggle(k,!todos)); rerender(); return; }
   if(a==="menu"){return}
