@@ -64,6 +64,7 @@ main{padding:.7rem .7rem 5rem;max-width:720px;margin:0 auto}
 .sub-h.tg:active{transform:translateY(3px);box-shadow:0 0 0 #0e3f61,0 1px 2px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.35)}
 .sub-h.tg.lsp:active{box-shadow:0 0 0 #7d1b18,0 1px 2px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.35)}
 .list[hidden]{display:none}
+.tg-l{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
 .cond{font-size:.82rem;font-weight:650;color:var(--azul);background:var(--azul-claro);border-radius:.4rem;padding:.35rem .6rem;margin:.6rem 0 .1rem}
 
 /* linhas */
@@ -211,6 +212,7 @@ const CONTEUDO = {
 /* Significado da letra D (quadrado preto) nos checklists – PREENCHER AQUI */
 const LEG_D = "Procedimento realizado somente antes do primeiro voo do dia";
 const NOTAS = {
+  decol:"Clique nos botões RSP e LSP para ver os itens referentes ao Before TakeOff Procedure",
   pre:"As verificações do procedimento de pré-voo a seguir podem começar após a conclusão do procedimento de inspeção exterior e interior. Estas verificações são requeridas somente antes da primeira partida de motor do dia. Podem ser completadas por qualquer tripulante após a conclusão do procedimento de energização externa, ou do procedimento de energização normal se a energia externa não estiver disponível.",
   bs:"O procedimento antes da partida pode começar após a conclusão do procedimento de energização e quando ambos os pilotos estiverem a bordo da aeronave, prontos para partir os motores.",
   cruz:"Quando em voo de cruzeiro, transfira os comandos de voo e inicie a preparação para a chegada e a configuração da cabine do lado correspondente. O PF deve transferir os comandos e então realizar a preparação da cabine conforme descrito abaixo. Após a conclusão dessas etapas, os comandos devem ser transferidos novamente e o PM deve realizar as mesmas etapas. Durante a preparação e a configuração da cabine, ambos os pilotos devem revisar e verificar as frequências de navegação aplicáveis, os waypoints do banco de dados de navegação de aproximação e a aproximação perdida, as altitudes e os NOTAMs.\n\nObservação: Para chegadas visuais, a preparação e configuração da cabine podem ser realizadas somente pelo PM.",
@@ -342,6 +344,7 @@ const DEC_LSP = [
    ============================================================ */
 const KEY="bristow_rotina_v1";
 let done={}, cfg={fs:16};
+const abertos={}; /* listas RSP/LSP da decolagem abertas nesta sessão (ao abrir o app iniciam ocultas) */
 const mem={};
 function lerStore(k){try{return localStorage.getItem(k)}catch(e){return mem[k]||null}}
 function gravaStore(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}
@@ -459,9 +462,9 @@ function vHome(){
 
   h+=secao("Procedimentos antes da decolagem");
   h+=`<div class="list">`+rowGo("#/to","Before Takeoff Procedure (figura)",`${cnt(toKeys())}/13`,derivOk("to"),true)+`</div>`;
-  const oc=g=>!!(cfg.oc&&cfg.oc[g]);
+  const oc=g=>!abertos[g];
   const tg=(g,cls,txt)=>`<button class="sub-h tg${cls}" data-act="tgl" data-g="${g}" aria-expanded="${!oc(g)}">${txt}</button><div class="list"${oc(g)?" hidden":""} data-tg="${g}">`;
-  h+=`<div>`+tg("dr","","RSP")+DEC_RSP.map((x,i)=>rowCheck("dr"+i,"",x[0],x[1],"")).join("")+`</div></div>`;
+  h+=`<div><div class="tg-l">`+tg("dr","","RSP").replace(/<div class="list"/,`<button class="nota-btn" data-nota="decol" aria-expanded="false">NOTA</button></div><div id="nota-decol"></div><div class="list"`)+DEC_RSP.map((x,i)=>rowCheck("dr"+i,"",x[0],x[1],"")).join("")+`</div></div>`;
   h+=`<div>`+tg("dl"," lsp","LSP")+DEC_LSP.map((x,i)=>rowCheck("dl"+i,"",x[0],x[1],"")).join("")+`</div></div>`;
   h+=`<div class="list" style="margin-top:.8rem">`+rowGo("#/tochk","SOLICITAR: Before Take Off Checklist","",isOk("tor")).replace('row go static','row solic go static').replace('data-go="#/tochk" aria-label="Abrir"','data-act="chk" data-k="tor" aria-label="Marcar"')+`</div>`;
   h+=secao("Procedimento de cruzeiro","","cruz");
@@ -690,7 +693,7 @@ document.addEventListener("click",e=>{
   if(a==="closesheet"){ fechaSheet(); return; }
   if(a==="tgl"){ const g=el.dataset.g, l=document.querySelector(`[data-tg="${g}"]`); if(!l)return;
     l.hidden=!l.hidden; el.setAttribute("aria-expanded",String(!l.hidden));
-    cfg.oc=Object.assign({},cfg.oc,{[g]:l.hidden}); aplicaCfg(); return; }
+    abertos[g]=!l.hidden; return; }
   if(a==="chk"){ toggle(el.dataset.k); rerender(); return; }
   if(a==="all"){ const ks=el.dataset.keys.split(","); const todos=ks.every(isOk); ks.forEach(k=>toggle(k,!todos)); rerender(); return; }
   if(a==="menu"){return}
