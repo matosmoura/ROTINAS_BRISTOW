@@ -361,7 +361,7 @@ function toggle(k,v){ if(v===undefined) v=!done[k]; if(v) done[k]=1; else delete
    ============================================================ */
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const LUPA='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>';
+const LUPA='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
 function splitDet(t){
   const m=t.match(/^(.*?)\s*\((.*)\)\s*$/);
   /* só vira "detalhe" quando é estado/condição; siglas como (RCP) ficam no título */
@@ -515,7 +515,7 @@ function vGrupo(g){
   return {titulo:"Grupo "+g,sub:"Inspeção externa · "+GRUPO_NOME[g],h,voltar:"#/ext"};
 }
 function vInt(){
-  let h=`<p class="hint">${cnt(intKeys())} de ${intKeys().length} itens. Toque na lupa para ver os subitens.</p><div class="list">`;
+  let h=`<p class="hint">${cnt(intKeys())} de ${intKeys().length} itens. Toque no + para ver os subitens.</p><div class="list">`;
   h+=INTERNA.map(x=>x[0]==="cond"?`</div><div class="cond">${esc(x[1])}</div><div class="list">`:rowCheck("i"+x[0],x[0],x[1],x[2])).join("")+`</div>`;
   h+=`<button class="bigbtn ghost" data-act="all" data-keys="${intKeys().join(",")}">${derivOk("int")?"Desmarcar todos":"Marcar todos"}</button>`;
   return {titulo:"Inspeção interna",sub:"Itens 72 a 133",h,voltar:"#/"};
