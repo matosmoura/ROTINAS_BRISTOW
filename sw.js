@@ -1,6 +1,6 @@
 // Service worker da Rotina Bristow: permite usar o app offline depois do primeiro acesso.
 // Rede primeiro (sempre conferindo com o servidor); sem internet, usa a cópia guardada.
-const CACHE = 'rotina-bristow-v6';
+const CACHE = 'rotina-bristow-v4';
 const FILES = ['./', 'index.html', 'manifest.webmanifest',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png',
   'icons/apple-touch-icon.png', 'icons/favicon-64.png'];
