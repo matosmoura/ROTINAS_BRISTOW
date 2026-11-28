@@ -618,7 +618,7 @@ let pathAtual=null, scrolls={}, sheetPush=false, figState={};
    Linhas: "# título de grupo" · "* passo" · "o subpasso" · "N: nota" · "P parágrafo" · "T a|b;c|d" (tabela)
    ============================================================ */
 const FMS = [
- {sec:"2.3.7.1 Navegação Lateral", itens:[
+ {sec:"Navegação Lateral", itens:[
   ["2.3.7.1.1","Edição de Waypoints no Plano de Voo",[
    "N: Se a edição de um waypoint no plano de voo causar uma mudança significativa de rumo no trecho ativo em voo, utilize imediatamente a função Direct-To (conforme descrito neste capítulo) para navegar até o waypoint TO ativo. Isso ajudará a minimizar ângulos de inclinação indesejados ao usar o modo NAV do diretor de voo.",
    "# Para adicionar um waypoint ao plano de voo:",
@@ -676,7 +676,7 @@ const FMS = [
    "* Selecionar ARRIVAL na página ACTIVE FLIGHT PLAN ou NAV INDEX",
    "* Selecionar APPROACH na página ARRIVAL",
    "* Selecionar a aproximação desejada na página APPROACH",
-   "N: Se for selecionada uma aproximação subsequente no mesmo aeroporto, mas para uma pista diferente (ex.: após uma aproximação perdida), a superfície da pista deve primeiro ser alterada para permitir a seleção de uma aproximação para a nova pista (ver 2.3.7.1.7 Inserção de uma Superfície de Pouso).",
+   "N: Se for selecionada uma aproximação subsequente no mesmo aeroporto, mas para uma pista diferente (ex.: após uma aproximação perdida), a superfície da pista deve primeiro ser alterada para permitir a seleção de uma aproximação para a nova pista (ver Inserção de uma Superfície de Pouso).",
    "* Selecionar a transição de aproximação desejada na página APPROACH TRANS",
    "* Selecionar a tecla de seleção de linha ARRIVAL para retornar à página ARRIVAL",
    "* Selecionar REVIEW para revisar o procedimento selecionado ou selecionar ACTIVATE para inserir o procedimento selecionado no plano de voo ativo",
@@ -719,7 +719,7 @@ const FMS = [
    "o O azimute é verdadeiro (True) ao colocar T após o número (p. ex., PXR/090T/30)",
    "* Selecionar a tecla de seleção de linha onde o waypoint temporário será inserido",
    "# Prolongamento do eixo da pista (P/B/D temporário):",
-   "P Um waypoint P/B/D temporário pode ser usado para estender o eixo da pista, o que pode ser útil para aumentar a consciência situacional durante aproximações visuais a pistas paralelas, trabalho em circuito de tráfego, etc. Após uma superfície de pouso ter sido inserida e ativada na página ARRIVAL (ver 2.3.7.1.7):",
+   "P Um waypoint P/B/D temporário pode ser usado para estender o eixo da pista, o que pode ser útil para aumentar a consciência situacional durante aproximações visuais a pistas paralelas, trabalho em circuito de tráfego, etc. Após uma superfície de pouso ter sido inserida e ativada na página ARRIVAL (ver Inserção de uma Superfície de Pouso):",
    "* Selecionar a tecla de seleção de linha da pista na página ACTIVE FLT PLAN. O identificador da pista selecionada e os dados de marcação serão exibidos automaticamente no scratchpad no formato P/B/ (p. ex., RWY10/101/). Adicionar os dados de distância desejados",
    "* Selecionar a tecla de seleção de linha onde o waypoint temporário será inserido",
    "N: Uma restrição de altitude adicional também pode ser inserida usando o formato P/B/D/ALT ou P/B/P/B/ALT, se desejado."]],
@@ -825,13 +825,13 @@ const FMS = [
    "# Para retomar a espera após selecionar a opção EXIT:",
    "* Selecionar RESUME na página ACTIVE FLT PLAN",
    "# Para sair imediatamente do padrão de espera e navegar diretamente para um fixo:",
-   "* Usar o procedimento Direct-To a waypoint conforme descrito neste capítulo (2.3.7.1.10)",
+   "* Usar o procedimento Direct-To a waypoint conforme descrito em Direto a um Waypoint (Direct-To)",
    "# Quando padrões de espera são incluídos como parte de um procedimento de aproximação publicado para inversão de rumo:",
    "* Tanto para entradas em gota (teardrop) quanto paralelas, o FMS muda automaticamente para saída da espera no início da entrada",
    "* Para entradas diretas, o FMS muda automaticamente para saída da espera na curva de aproximação para o fixo de espera",
    "* Em ambos os casos, o piloto pode retomar a espera a qualquer momento antes de sair do padrão de espera. Quando a espera é retomada, a saída do padrão de espera requer nova ação do piloto"]]
  ]},
- {sec:"2.3.7.2 Navegação Vertical", itens:[
+ {sec:"Navegação Vertical", itens:[
   ["2.3.7.2.1","Inserção Manual de um Perfil VPATH",[
    "* Pressionar a tecla FPL",
    "* Inserir o ângulo VPATH desejado e a restrição de altitude no scratchpad no seguinte formato: ANGLE/ALTITUDE",
@@ -849,7 +849,7 @@ const FMS = [
    "* Pressionar a tecla NEXT para exibir a página PROGRESS 2/3",
    "* Selecionar a tecla de seleção de linha VNAV DATA"]]
  ]},
- {sec:"2.3.7.3 Funções em Voo de Progresso e Planejamento de Combustível", itens:[
+ {sec:"Funções em Voo de Progresso e Planejamento de Combustível", itens:[
   ["2.3.7.3.1","Determinação de ETA e Combustível (FUEL) Remanescente para Novo Destino ou Alternativa",[
    "# Para determinar o ETE e o combustível remanescente sobre o destino alternativo, direto da posição atual da aeronave:",
    "* Pressionar a tecla NAV para exibir a página NAV INDEX 1/2",
@@ -867,7 +867,7 @@ const FMS = [
    "* Pressionar a tecla de seleção de linha FLT SUM",
    "N: Alternativamente, a página FLIGHT SUMMARY pode ser acessada a partir da página PROGRESS 3/3."]]
  ]},
- {sec:"2.3.7.4 Funções Adicionais", itens:[
+ {sec:"Funções Adicionais", itens:[
   ["2.3.7.4.1","Configuração da Compensação de Temperatura do MCDU",[
    "P A configuração padrão da empresa para compensação de temperatura é o estado HOT&COLD. A configuração não deve ser alterada intencionalmente pelos pilotos a partir desse estado padrão. Entretanto, pode haver situações em que esse modo padrão tenha sido alterado (p. ex., após manutenção) e a opção TEMP COMP não esteja disponível na página LANDING. As seguintes etapas do procedimento podem ser usadas para restaurar a configuração ao estado padrão:",
    "# 1. MCDU",
@@ -886,7 +886,7 @@ const FMS = [
    "* Selecionar a opção MCDU",
    "N: A página FLIGHT SUMMARY não será exibida automaticamente após o pouso se a página RADIO estiver exibida."]]
  ]},
- {sec:"2.3.7.5 Operações Fora das Áreas de Cobertura SBAS", itens:[
+ {sec:"Operações Fora das Áreas de Cobertura SBAS", itens:[
   ["2.3.7.5.1","Procedimento Antes da Partida (Before Departure)",[
    "P Esta seção contém procedimentos suplementares a serem seguidos ao conduzir operações fora das áreas de cobertura SBAS, ou em caso de indisponibilidades do SBAS.",
    "# 1. MCDU – quando a predição RAIM no destino for necessária para o segmento de voo:",
@@ -898,7 +898,7 @@ const FMS = [
    "o Selecionar PRED RAIM para visualizar a previsão de RAIM na ETA do destino",
    "o Para RAIM do destino na ETA −15 a +15 minutos, selecionar DEST"]]
  ]},
- {sec:"2.3.8 Combustível", itens:[
+ {sec:"Combustível", itens:[
   ["2.3.8.1","Geral",[
    "P Esta seção detalha os procedimentos de reabastecimento.",
    "* Minimizar o uso da bateria da aeronave durante as operações de reabastecimento para evitar descarga desnecessária",
@@ -937,14 +937,14 @@ function vFms(){
   let h=`<p class="hint">Toque numa funcionalidade para ver os passos.</p>`;
   FMS.forEach(s=>{
     h+=`<div class="sec"><h2>${esc(s.sec)}</h2></div><div class="list">`+
-      s.itens.map(([n,t])=>`<div class="row go static"><button class="t" data-go="#/fms/${n}">${esc(t)}<span class="d">${n}</span></button><span class="chev" data-go="#/fms/${n}">›</span></div>`).join("")+`</div>`;
+      s.itens.map(([n,t])=>`<div class="row go static"><button class="t" data-go="#/fms/${n}">${esc(t)}</button><span class="chev" data-go="#/fms/${n}">›</span></div>`).join("")+`</div>`;
   });
   return {titulo:"FMS",sub:"Gerenciamento de Voo e Navegação",h,voltar:"#/"};
 }
 function vFmsItem(n){
   const i=FMS_ITENS.findIndex(x=>x.n===n); if(i<0) return vFms();
   const it=FMS_ITENS[i], ant=FMS_ITENS[i-1], prox=FMS_ITENS[i+1];
-  const h=`<div class="card"><span class="badge">${esc(it.n)}</span><h2>${esc(it.t)}</h2><hr class="sep"><div class="content fms-c">${fmsCorpo(it.l)}</div></div>
+  const h=`<div class="card"><h2>${esc(it.t)}</h2><hr class="sep"><div class="content fms-c">${fmsCorpo(it.l)}</div></div>
     <div class="pager"><button data-go="${ant?"#/fms/"+ant.n:"#"}" ${ant?"":"disabled"}>‹ Anterior</button><button data-go="#/fms">Lista</button><button data-go="${prox?"#/fms/"+prox.n:"#"}" ${prox?"":"disabled"}>Próximo ›</button></div>`;
   return {titulo:"FMS",sub:it.sec,h,voltar:"#/fms"};
 }
